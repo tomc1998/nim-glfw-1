@@ -19,7 +19,6 @@ when defined(windows):
   """
 else:
   const defs = """
-    glfw3SetVer=05dd2fa
     glfw3Git
     glfw3Static
   """
@@ -31,6 +30,8 @@ when defined(amd64):
 else:
   const dlUrl = "https://github.com/glfw/glfw/releases/download/$1/glfw-$1.bin.WIN32.zip"
 
+const glfw3GitUrl {.strdefine.}: string = "https://github.com/glfw/glfw"
+
 proc glfw3PreBuild(outdir, other: string) =
   rmDir(outdir/"lib-vc2012")
   rmDir(outdir/"lib-vc2013")
@@ -41,9 +42,9 @@ proc glfw3PreBuild(outdir, other: string) =
 
 getHeader(
   "glfw3.h",
-  giturl = "https://github.com/glfw/glfw",
   dlUrl = dlUrl,
   outdir = srcDir,
+  giturl = glfw3GitUrl,
   altNames = "glfw3dll,glfw,glfw3",
 )
 
